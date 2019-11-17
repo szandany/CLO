@@ -6,7 +6,7 @@ pipeline {
 agent {
     node {
       label 'master'
-      customWorkspace "/Users/support.liquibase.net/workspace/1.Package-${BUILD_NUMBER}/"
+      //customWorkspace "/Users/support.liquibase.net/workspace/1.Package-${BUILD_NUMBER}/"
     }
   }
   environment {
