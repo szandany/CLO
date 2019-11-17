@@ -14,7 +14,8 @@ agent {
   	GITURL="https://github.com/szandany"
     //JAVA_HOME=$(/usr/libexec/java_home)
     //PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
-    LIQUIBASE_PIPELINE="${params.pipeline}"
+    //LIQUIBASE_PIPELINE="${params.pipeline}"
+    LIQUIBASE_PIPELINE="QA"
   	ENVIRONMENT="${params.environment}"
     //PATH="$PATH:/opt/datical/DaticalDB/repl:$ORACLE_HOME/bin"
   }
