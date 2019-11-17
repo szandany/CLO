@@ -60,6 +60,7 @@ agent {
       steps {
 					sh '''
 					  { set +x; } 2>/dev/null
+            cd /Users/support.liquibase.net/workspace/${PROJ}/QA
             liquibase --version
             echo "------------------------------------"
             echo "----------liquibase status----------"
