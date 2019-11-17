@@ -3,14 +3,6 @@
 //
 //
 pipeline {
-  agent {
-    node {
-      label 'liquibase'
-      //customWorkspace "/var/lib/jenkins/workspace/AMY/1.Package-${BUILD_NUMBER}/"
-      //customWorkspace "/Users/support.liquibase.net/workspace/1.Package-${BUILD_NUMBER}/"
-    }
-  }
-
   environment {
     PROJ="CLO"
   	GITURL="https://github.com/szandany"
