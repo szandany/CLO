@@ -26,7 +26,8 @@ agent {
         export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
         export JAVA_HOME=$(/usr/libexec/java_home)
 				echo PATH=${PATH}
-        echo "The environment for this job is" params.environment
+        echo "The environment for this job is"
+        echo "${params.environment}"
 				whoami
 				which git
 				git --version
