@@ -14,8 +14,8 @@ agent {
   	GITURL="https://github.com/szandany"
     //JAVA_HOME=$(/usr/libexec/java_home)
     //PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
-    LIQUIBASE_PIPELINE="${params.pipeline}"
-  	ENVIRONMENT="${params.environment}"
+    def LIQUIBASE_PIPELINE="${params.pipeline}"
+  	def ENVIRONMENT="${params.environment}"
     //PATH="$PATH:/opt/datical/DaticalDB/repl:$ORACLE_HOME/bin"
   }
   stages {
@@ -26,8 +26,6 @@ agent {
         export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
         export JAVA_HOME=$(/usr/libexec/java_home)
 				echo PATH=${PATH}
-        echo "The environment for this job is"
-        echo "${params.environment}"
 				whoami
 				which git
 				git --version
