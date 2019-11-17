@@ -15,7 +15,7 @@ pipeline {
     PROJ="CLO"
   	GITURL="https://github.com/szandany"
     //JAVA_HOME=$(/usr/libexec/java_home)
-    PATH="/Users/support.liquibase.net/liquibase-3.8.1-bin":$PATH
+    //PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
     LIQUIBASE_PIPELINE="${params.pipeline}"
   	ENVIRONMENT="${params.environment}"
     //PATH="$PATH:/opt/datical/DaticalDB/repl:$ORACLE_HOME/bin"
@@ -25,6 +25,8 @@ pipeline {
     stage ('Precheck') {
 		steps {
 			sh '''
+        export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
+        export JAVA_HOME=$(/usr/libexec/java_home)
 				echo PATH=${PATH}
 				whoami
 				which git
