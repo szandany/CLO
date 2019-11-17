@@ -45,43 +45,32 @@ agent {
       } // steps for checkout stages
     } // stage 'checkout'
 
-   stage ('Environment'){
+   stage ('liquibase commands'){
       steps {
         sh '''
           #{ set +x; } 2>/dev/null
+          export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
           cd /Users/support.liquibase.net/workspace/${PROJ}/QA
-          echo "Current Directory:" `pwd`
-          git status
+          liquibase --version
+          echo "------------------------------------"
+          echo "----------liquibase status----------"
+          echo "------------------------------------"
+          liquibase status
+          echo "---------------------------------------------"
+          echo "----------liquibase rollbackCount=2----------"
+          echo "---------------------------------------------"
+          liquibase rollbackCount 2
+          echo "---------------------------------------"
+          echo "----------liquibase updateSQL----------"
+          echo "---------------------------------------"
+          liquibase updateSQL
+          echo "------------------------------------"
+          echo "----------liquibase update----------"
+          echo "------------------------------------"
+          liquibase update
         '''
       } // steps
     }   // Environment stage
-
-    stage('liquibase commands') {
-      steps {
-					sh '''
-					  #{ set +x; } 2>/dev/null
-            cd /Users/support.liquibase.net/workspace/${PROJ}/QA
-            liquibase --version
-            echo "------------------------------------"
-            echo "----------liquibase status----------"
-            echo "------------------------------------"
-            liquibase status
-            echo "---------------------------------------------"
-            echo "----------liquibase rollbackCount=2----------"
-            echo "---------------------------------------------"
-            liquibase rollbackCount 2
-            echo "---------------------------------------"
-            echo "----------liquibase updateSQL----------"
-            echo "---------------------------------------"
-            liquibase updateSQL
-            echo "------------------------------------"
-            echo "----------liquibase update----------"
-            echo "------------------------------------"
-            liquibase update
-					  //hammer groovy deployPackager.groovy pipeline=${LIQUIBASE_PIPELINE} scm=true labels="${BUILD_NUMBER}"
-					  '''
-				} // steps
-	  		} //liquibase commands
 
         stage ('Deleting project workspace'){
            steps {
