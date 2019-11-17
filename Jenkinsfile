@@ -85,8 +85,5 @@ pipeline {
              '''
            } // steps
          }   // Deleting project workspace
-        }
-      }
-    }
-  }   // stages
-}     // pipeline
+  } // stages
+}  // pipeline
