@@ -15,8 +15,7 @@ agent {
     //JAVA_HOME=$(/usr/libexec/java_home)
     //PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
     LIQUIBASE_PIPELINE="${params.pipeline}"
-    ENVIRONMENT="QA"
-  	//ENVIRONMENT="${params.environment}"
+  	ENVIRONMENT="${params.environment}"
     //PATH="$PATH:/opt/datical/DaticalDB/repl:$ORACLE_HOME/bin"
   }
   stages {
@@ -50,7 +49,7 @@ agent {
       steps {
         sh '''
           #{ set +x; } 2>/dev/null
-          cd /Users/support.liquibase.net/workspace/${PROJ}/${ENVIRONMENT}
+          cd /Users/support.liquibase.net/workspace/${PROJ}/QA
           echo "Current Directory:" `pwd`
           git status
         '''
