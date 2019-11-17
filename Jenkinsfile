@@ -49,7 +49,7 @@ agent {
       steps {
         sh '''
           #{ set +x; } 2>/dev/null
-          //cd "${PROJ}"/"${ENVIRONMENT}"
+          cd /Users/support.liquibase.net/workspace/${PROJ}/${ENVIRONMENT}
           echo "Current Directory:" `pwd`
           git status
         '''
