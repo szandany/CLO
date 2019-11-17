@@ -49,7 +49,7 @@ agent {
       steps {
         sh '''
           #{ set +x; } 2>/dev/null
-          cd ${PROJ}/${ENVIRONMENT}
+          //cd "${PROJ}"/"${ENVIRONMENT}"
           echo "Current Directory:" `pwd`
           git status
         '''
