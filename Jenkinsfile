@@ -18,7 +18,7 @@ agent any
     stage ('Precheck') {
 		steps {
 			sh '''
-        echo $LIQUIBASE_PIPELINE
+        echo $"${params.pipeline}"
         echo $ENVIRONMENT
         export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
         export JAVA_HOME=$(/usr/libexec/java_home)
