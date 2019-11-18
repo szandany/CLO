@@ -40,6 +40,7 @@ agent any
           if [ -d "CLO" ]; then rm -Rf CLO; fi
           git clone https://github.com/szandany/${PROJ}.git
           git checkout $BRANCH
+          git status
           '''
       } // steps for checkout stages
     } // stage 'checkout'
