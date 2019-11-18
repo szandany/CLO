@@ -19,8 +19,8 @@ agent any
 		steps {
 			sh '''
         { set +x; } 2>/dev/null
-        echo $ENVIRONMENT_STEP
-        echo $BRANCH
+        echo "Current scm branch: "$BRANCH
+        echo "Current environment: "$ENVIRONMENT_STEP
         export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
         export JAVA_HOME=$(/usr/libexec/java_home)
 				echo PATH=${PATH}
