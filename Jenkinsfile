@@ -44,7 +44,7 @@ agent any
    stage ('liquibase commands'){
       steps {
         sh '''
-          #{ set +x; } 2>/dev/null
+          { set +x; } 2>/dev/null
           export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
           cd /Users/support.liquibase.net/workspace/${PROJ}/QA
           liquibase --version
@@ -55,15 +55,15 @@ agent any
           echo "---------------------------------------------"
           echo "----------liquibase rollbackCount=2----------"
           echo "---------------------------------------------"
-          liquibase rollbackCount 2
+          #liquibase rollbackCount 2
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
-          liquibase updateSQL
+          #liquibase updateSQL
           echo "------------------------------------"
           echo "----------liquibase update----------"
           echo "------------------------------------"
-          liquibase update
+          #liquibase update
         '''
       } // steps
     }   // Environment stage
