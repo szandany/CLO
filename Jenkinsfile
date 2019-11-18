@@ -23,10 +23,6 @@ agent any
         echo "Current environment: "$ENVIRONMENT_STEP
         export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
         export JAVA_HOME=$(/usr/libexec/java_home)
-				echo PATH=${PATH}
-				whoami
-				which git
-				git --version
 			'''
 		} // steps
 	} // stage 'precheck'
