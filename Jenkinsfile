@@ -47,7 +47,7 @@ agent any
         sh '''
           { set +x; } 2>/dev/null
           export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
-          cd /Users/support.liquibase.net/workspace/${PROJ}/QA
+          cd /Users/support.liquibase.net/workspace/${PROJ}/${ENVIRONMENT_STEP}
           liquibase --version
           echo "------------------------------------"
           echo "----------liquibase status----------"
