@@ -39,7 +39,7 @@ agent any
           cd /Users/support.liquibase.net/workspace
           if [ -d "CLO" ]; then rm -Rf CLO; fi
           git clone https://github.com/szandany/${PROJ}.git
-          git checkout $BRANCH
+          #git checkout $BRANCH
           git status
           '''
       } // steps for checkout stages
