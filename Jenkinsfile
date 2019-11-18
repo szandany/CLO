@@ -73,7 +73,7 @@ agent any
         stage ('Deleting project workspace'){
            steps {
              sh '''
-               #{ set +x; } 2>/dev/null
+               { set +x; } 2>/dev/null
                echo "Deleting project workspace..."
                cd /Users/support.liquibase.net/workspace && rm -r ${PROJ}
              '''
