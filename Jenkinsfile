@@ -9,8 +9,7 @@ agent any
   	GITURL="https://github.com/szandany"
     //JAVA_HOME=$(/usr/libexec/java_home)
     //PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
-    //LIQUIBASE_PIPELINE="${params.pipeline}"
-  	ENVIRONMENT="${params.step}"
+  	ENVIRONMENT_STEP="${params.step}"
     //PATH="$PATH:/opt/datical/DaticalDB/repl:$ORACLE_HOME/bin"
   }
   stages {
@@ -18,8 +17,7 @@ agent any
     stage ('Precheck') {
 		steps {
 			sh '''
-        //echo $LIQUIBASE_PIPELINE
-        echo $ENVIRONMENT
+        echo $ENVIRONMENT_STEP
         export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
         export JAVA_HOME=$(/usr/libexec/java_home)
 				echo PATH=${PATH}
