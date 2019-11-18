@@ -3,19 +3,14 @@
 //
 //
 pipeline {
-agent {
-    node {
-      label 'master'
-      //customWorkspace "/Users/support.liquibase.net/workspace/1.Package-${BUILD_NUMBER}/"
-    }
-  }
+agent any
   environment {
     PROJ="CLO"
   	GITURL="https://github.com/szandany"
     //JAVA_HOME=$(/usr/libexec/java_home)
     //PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
-    def LIQUIBASE_PIPELINE="${params.pipeline}"
-  	def ENVIRONMENT="${params.environment}"
+    LIQUIBASE_PIPELINE="${params.pipeline}"
+  	ENVIRONMENT="${params.environment}"
     //PATH="$PATH:/opt/datical/DaticalDB/repl:$ORACLE_HOME/bin"
   }
   stages {
