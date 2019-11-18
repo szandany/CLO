@@ -10,6 +10,7 @@ agent any
     //JAVA_HOME=$(/usr/libexec/java_home)
     //PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
   	ENVIRONMENT_STEP="${params.step}"
+    BRANCH="${params.pipeline}"
     //PATH="$PATH:/opt/datical/DaticalDB/repl:$ORACLE_HOME/bin"
   }
   stages {
