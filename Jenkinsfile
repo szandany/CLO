@@ -56,15 +56,15 @@ agent any
           echo "---------------------------------------------"
           echo "----------liquibase rollbackCount=2----------"
           echo "---------------------------------------------"
-          #liquibase rollbackCount 2
+          liquibase rollbackCount 2
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
-          #liquibase updateSQL
+          liquibase updateSQL
           echo "------------------------------------"
           echo "----------liquibase update----------"
           echo "------------------------------------"
-          #liquibase update
+          liquibase update
         '''
       } // steps
     }   // Environment stage
