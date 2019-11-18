@@ -18,6 +18,7 @@ agent any
     stage ('Precheck') {
 		steps {
 			sh '''
+        { set +x; } 2>/dev/null
         echo $ENVIRONMENT_STEP
         echo $BRANCH
         export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
@@ -34,7 +35,7 @@ agent any
       steps {
         // checkout Liquibase project from CLO repo
         sh '''
-          #{ set +x; } 2>/dev/null
+          { set +x; } 2>/dev/null
           cd /Users/support.liquibase.net/workspace
           if [ -d "CLO" ]; then rm -Rf CLO; fi
           git clone https://github.com/szandany/${PROJ}.git
