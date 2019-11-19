@@ -7,11 +7,8 @@ agent any
   environment {
     PROJ="CLO"
   	GITURL="https://github.com/szandany"
-    //JAVA_HOME=$(/usr/libexec/java_home)
-    //PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
   	ENVIRONMENT_STEP="${params.step}"
     BRANCH="${params.pipeline}"
-    //PATH="$PATH:/opt/datical/DaticalDB/repl:$ORACLE_HOME/bin"
   }
   stages {
 
@@ -19,14 +16,11 @@ agent any
 		steps {
 			sh '''
         { set +x; } 2>/dev/null
-        echo $ENVIRONMENT_STEP
-        echo $BRANCH
+        echo "Current project: "$PROJ
+        echo "Current scm branch: "$BRANCH
+        echo "Current environment: "$ENVIRONMENT_STEP
         export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
         export JAVA_HOME=$(/usr/libexec/java_home)
-				echo PATH=${PATH}
-				whoami
-				which git
-				git --version
 			'''
 		} // steps
 	} // stage 'precheck'
@@ -39,6 +33,10 @@ agent any
           cd /Users/support.liquibase.net/workspace
           if [ -d "CLO" ]; then rm -Rf CLO; fi
           git clone https://github.com/szandany/${PROJ}.git
+<<<<<<< HEAD
+=======
+          cd ${PROJ}
+>>>>>>> master
           git checkout $BRANCH
           git status
           '''
@@ -50,24 +48,24 @@ agent any
         sh '''
           { set +x; } 2>/dev/null
           export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
-          cd /Users/support.liquibase.net/workspace/${PROJ}/QA
+          cd /Users/support.liquibase.net/workspace/${PROJ}/${ENVIRONMENT_STEP}
           liquibase --version
           echo "------------------------------------"
           echo "----------liquibase status----------"
           echo "------------------------------------"
-          liquibase status
+          liquibase --contexts=$ENVIRONMENT_STEP status
           echo "---------------------------------------------"
           echo "----------liquibase rollbackCount=2----------"
           echo "---------------------------------------------"
-          #liquibase rollbackCount 2
+          liquibase --contexts=$ENVIRONMENT_STEP rollbackCount 2
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
-          #liquibase updateSQL
+          liquibase --contexts=$ENVIRONMENT_STEP updateSQL
           echo "------------------------------------"
           echo "----------liquibase update----------"
           echo "------------------------------------"
-          #liquibase update
+          liquibase --contexts=$ENVIRONMENT_STEP update
         '''
       } // steps
     }   // Environment stage
