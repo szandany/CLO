@@ -50,19 +50,19 @@ agent any
           echo "------------------------------------"
           echo "----------liquibase status----------"
           echo "------------------------------------"
-          liquibase status
+          liquibase --status
           echo "---------------------------------------------"
           echo "----------liquibase rollbackCount=2----------"
           echo "---------------------------------------------"
-          liquibase rollbackCount 2
+          liquibase --$ENVIRONMENT_STEP rollbackCount 2
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
-          liquibase updateSQL
+          liquibase --$ENVIRONMENT_STEP updateSQL
           echo "------------------------------------"
           echo "----------liquibase update----------"
           echo "------------------------------------"
-          liquibase update
+          liquibase --$ENVIRONMENT_STEP update
         '''
       } // steps
     }   // Environment stage
