@@ -50,7 +50,7 @@ agent any
           echo "------------------------------------"
           echo "----------liquibase status----------"
           echo "------------------------------------"
-          liquibase ----$ENVIRONMENT_STEP status
+          liquibase --$ENVIRONMENT_STEP status
           echo "---------------------------------------------"
           echo "----------liquibase rollbackCount=2----------"
           echo "---------------------------------------------"
