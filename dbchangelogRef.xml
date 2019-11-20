@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-1">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-1">
         <createTable tableName="T_FILM">
             <column name="FILM_ID" type="NUMBER(*, 0)">
                 <constraints primaryKey="true" primaryKeyName="PK_T_FILM"/>
@@ -19,7 +19,7 @@
             <column name="FILM_ID_EPISODES" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-2">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-2">
         <createTable tableName="T_EXEMPLAR">
             <column name="EXEMPLAR_ID" type="NUMBER(*, 0)">
                 <constraints primaryKey="true" primaryKeyName="PK_T_EXEMPLAR"/>
@@ -33,17 +33,17 @@
             <column name="PRICE_PER_DAY" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-3">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-3">
         <createView fullDefinition="true" viewName="V_CUSTOMER_HAS_FILM">CREATE OR REPLACE FORCE VIEW V_CUSTOMER_HAS_FILM (NAME, CITY, TITLE, DIRECTOR) AS SELECT DISTINCT c.name, c.city AS city, f.title, f.director
 FROM T_CUSTOMER c, T_BORROWING b, T_EXEMPLAR e, T_FILM f
 WHERE c.customer_id=b.customer_id
 and b.exemplar_id=e.exemplar_id
 and e.film_id=f.film_id</createView>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-4">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-4">
         <createSequence cacheSize="0" maxValue="9999999999999999999999999999" sequenceName="SEQEXEMPLAR" startValue="14"/>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-5">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-5">
         <createTable tableName="CLT_BENEFIT_VER2">
             <column name="CLT_BENEFIT_VER_ID" type="NUMBER">
                 <constraints primaryKey="true" primaryKeyName="PK_CLT_BENEFIT_VER2"/>
@@ -93,7 +93,7 @@ and e.film_id=f.film_id</createView>
             <column name="COMMENTS" type="VARCHAR2(200 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-6">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-6">
         <createTable tableName="CLT_BENEFIT_VER3">
             <column name="CLT_BENEFIT_VER_ID" type="NUMBER">
                 <constraints primaryKey="true" primaryKeyName="PK_CLT_BENEFIT_VER3"/>
@@ -143,7 +143,7 @@ and e.film_id=f.film_id</createView>
             <column name="COMMENTS" type="VARCHAR2(200 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-7">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-7">
         <createTable tableName="CLT_BENEFIT_VER4">
             <column name="CLT_BENEFIT_VER_ID" type="NUMBER">
                 <constraints primaryKey="true" primaryKeyName="PK_CLT_BENEFIT_VER4"/>
@@ -193,22 +193,22 @@ and e.film_id=f.film_id</createView>
             <column name="COMMENTS" type="VARCHAR2(200 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-8">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-8">
         <createTable tableName="IZZYTABLE2">
             <column name="ID" type="NUMBER"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-9">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-9">
         <createTable tableName="Izzy's Table">
             <column name="ID" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-10">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-10">
         <createTable tableName="MYTABLE2222">
             <column name="COLUMN1" type="NUMBER"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-11">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-11">
         <createTable tableName="ORDERS">
             <column name="ORDER_ID" type="NUMBER(5, 0)"/>
             <column name="QUANTITY" type="NUMBER(4, 0)"/>
@@ -218,7 +218,7 @@ and e.film_id=f.film_id</createView>
             <column name="CREATED_BY" type="VARCHAR2(10 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-12">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-12">
         <createTable tableName="PERSON_ADDRESS_DETAILS">
             <column name="PERSON_ADDRESS_ID" type="NUMBER(5, 0)">
                 <constraints primaryKey="true" primaryKeyName="SYS_C0026751"/>
@@ -230,7 +230,7 @@ and e.film_id=f.film_id</createView>
             <column name="ZIP_CODE" type="VARCHAR2(10 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-13">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-13">
         <createTable tableName="PERSON_INFO">
             <column name="PERSON_ID" type="NUMBER(5, 0)">
                 <constraints primaryKey="true" primaryKeyName="SYS_C0026750"/>
@@ -239,7 +239,7 @@ and e.film_id=f.film_id</createView>
             <column name="LAST_NAME" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-14">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-14">
         <createTable tableName="S_TABLE208">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -249,7 +249,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-15">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-15">
         <createTable tableName="S_TABLE209">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -259,130 +259,130 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-16">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-16">
         <createTable tableName="TABLE1">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-17">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-17">
         <createTable remarks="This is a comment on table" tableName="TABLE2">
             <column name="COLUMN1" remarks="This is a comment on column" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-18">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-18">
         <createTable tableName="TABLE2012">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-19">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-19">
         <createTable tableName="TABLE208">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-20">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-20">
         <createTable tableName="TABLE242">
             <column name="ID" type="NUMBER"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-21">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-21">
         <createTable tableName="TABLE542">
             <column name="COLUMN1" type="CLOB"/>
             <column name="COLUMN2" type="CLOB"/>
             <column name="COLUMN3" type="CLOB"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-22">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-22">
         <createTable tableName="TABLE77">
             <column name="ID" type="NUMBER(*, 0)"/>
             <column name="HOUSENUM" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-23">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-23">
         <createTable tableName="TABLE778">
             <column name="ID" type="NUMBER(*, 0)"/>
             <column name="HOUSENUM" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-24">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-24">
         <createTable tableName="TABLE779">
             <column name="ID" type="NUMBER(*, 0)"/>
             <column name="HOUSENUM" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-25">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-25">
         <createTable tableName="TABLE780">
             <column name="ID" type="NUMBER(*, 0)"/>
             <column name="HOUSENUM" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-26">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-26">
         <createTable tableName="TABLE89">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-27">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-27">
         <createTable tableName="TABLE892">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-28">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-28">
         <createTable tableName="TABLE893">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-29">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-29">
         <createTable tableName="TABLE894">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-30">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-30">
         <createTable tableName="TABLE896">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-31">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-31">
         <createTable tableName="TABLE897">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-32">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-32">
         <createTable tableName="TABLE899">
             <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-33">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-33">
         <createTable tableName="TEST1017">
             <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-34">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-34">
         <createTable tableName="TEST1022">
             <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-35">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-35">
         <createTable remarks="This is a comment for the table" tableName="TEST1109">
             <column name="CUSTOMER_ID" remarks="This is comment for the column" type="NUMBER(10, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-36">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-36">
         <createTable tableName="TEST957">
             <column name="CUSTOMER_ID" remarks="This is comment for the column" type="NUMBER(10, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-37">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-37">
         <createTable tableName="TSVITEST">
             <column name="CUSTOMER_ID" type="NUMBER(10, 0)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-38">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-38">
         <createTable tableName="TSVITEST105">
             <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-39">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-39">
         <createTable tableName="TSVITEST123">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -392,21 +392,21 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-40">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-40">
         <createTable tableName="TSVITEST12322">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-41">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-41">
         <createTable tableName="TSVITEST1234">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-42">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-42">
         <createTable tableName="TSVITEST142">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
@@ -414,7 +414,7 @@ and e.film_id=f.film_id</createView>
             <column name="WEIGHT" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-43">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-43">
         <createTable tableName="TSVITEST203">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
@@ -422,34 +422,34 @@ and e.film_id=f.film_id</createView>
             <column name="WEIGHT" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-44">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-44">
         <createTable tableName="TSVITEST220">
             <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-45">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-45">
         <createTable tableName="TSVITEST2207">
             <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-46">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-46">
         <createTable tableName="TSVITEST22207">
             <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
             <column name="HOUSENUMBER" type="NUMBER"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-47">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-47">
         <createTable tableName="TSVITEST222077">
             <column name="ID" type="NUMBER(*, 0)"/>
             <column name="HOUSENUM" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-48">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-48">
         <createTable tableName="TSVITEST22207XYZ">
             <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-49">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-49">
         <createTable tableName="TSVITEST306">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
@@ -457,14 +457,14 @@ and e.film_id=f.film_id</createView>
             <column name="WEIGHT" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-50">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-50">
         <createTable tableName="TSVITEST321">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-51">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-51">
         <createTable tableName="TSVITEST4321">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
@@ -472,7 +472,7 @@ and e.film_id=f.film_id</createView>
             <column name="WEIGHT" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-52">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-52">
         <createTable tableName="TSVITEST432167">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
@@ -480,7 +480,7 @@ and e.film_id=f.film_id</createView>
             <column name="WEIGHT" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-53">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-53">
         <createTable tableName="TSVITEST4R2167">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
@@ -488,7 +488,7 @@ and e.film_id=f.film_id</createView>
             <column name="WEIGHT" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-54">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-54">
         <createTable tableName="TSVIZ345">
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
@@ -496,7 +496,7 @@ and e.film_id=f.film_id</createView>
             <column name="WEIGHT" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-55">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-55">
         <createTable tableName="T_CUSTOMER">
             <column name="CUSTOMER_ID" type="NUMBER(*, 0)">
                 <constraints primaryKey="true" primaryKeyName="PK_T_CUSTOMER"/>
@@ -513,7 +513,7 @@ and e.film_id=f.film_id</createView>
             <column name="COUNTRY" type="CHAR(2 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-56">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-56">
         <createTable tableName="T_CUSTOMER_BAK">
             <column name="CUSTOMER_ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -527,7 +527,7 @@ and e.film_id=f.film_id</createView>
             <column name="COUNTRY" type="CHAR(2 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-57">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-57">
         <createTable remarks="Movie ratings (by customers)" tableName="T_CUSTOMER_RATING">
             <column name="TITLE" type="VARCHAR2(50 CHAR)">
                 <constraints primaryKey="true" primaryKeyName="PK_T_CUSTOMER_RATING"/>
@@ -538,7 +538,7 @@ and e.film_id=f.film_id</createView>
             <column defaultValueNumeric="3" name="RATING" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-58">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-58">
         <createTable tableName="T_GENRE">
             <column name="GENRE_ID" type="NUMBER(*, 0)">
                 <constraints primaryKey="true" primaryKeyName="PK_T_GENRE"/>
@@ -546,7 +546,7 @@ and e.film_id=f.film_id</createView>
             <column name="NAME" type="VARCHAR2(20 CHAR)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-59">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-59">
         <createTable tableName="T_MEDIUM">
             <column name="MEDIUM_ID" type="NUMBER(*, 0)">
                 <constraints primaryKey="true" primaryKeyName="PK_T_MEDIUM"/>
@@ -554,7 +554,7 @@ and e.film_id=f.film_id</createView>
             <column name="MEDIUM_TYPE" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-60">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-60">
         <createTable remarks="All records are stored in list of records. It will be possible to book a movie." tableName="T_ORDER_RECORD">
             <column name="CUSTOMER_ID" type="NUMBER(*, 0)">
                 <constraints primaryKey="true" primaryKeyName="PK_T_ORDER_RECORD"/>
@@ -565,7 +565,7 @@ and e.film_id=f.film_id</createView>
             <column name="ORDER_DATE" type="date"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-61">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-61">
         <createTable tableName="T_RESELLER">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints primaryKey="true" primaryKeyName="PK_T_RESELLER"/>
@@ -575,7 +575,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-62">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-62">
         <createTable tableName="T_RESELLER101">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -585,7 +585,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-63">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-63">
         <createTable tableName="T_TABLE62">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -595,7 +595,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-64">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-64">
         <createTable tableName="T_TABLE66">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -605,7 +605,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-65">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-65">
         <createTable tableName="T_TABLE67">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -615,7 +615,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-66">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-66">
         <createTable tableName="T_TABLE674214322">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -625,7 +625,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-67">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-67">
         <createTable tableName="T_TABLE67432">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -635,7 +635,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-68">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-68">
         <createTable tableName="T_TABLE67434322">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -645,7 +645,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-69">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-69">
         <createTable tableName="T_TABLE67764">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -655,7 +655,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-70">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-70">
         <createTable tableName="T_TABLE68">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -665,7 +665,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-71">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-71">
         <createTable tableName="T_TABLE7">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -675,7 +675,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-72">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-72">
         <createTable tableName="T_TABLE77">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -685,7 +685,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-73">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-73">
         <createTable tableName="T_TABLE78">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -695,7 +695,7 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-74">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-74">
         <createTable tableName="WORK_ITEM_SRC">
             <column name="WORK_ITEM_SRC_SID" type="NUMBER(*, 0)">
                 <constraints primaryKey="true" primaryKeyName="PK_WORK_ITEM_SRC"/>
@@ -712,15 +712,25 @@ and e.film_id=f.film_id</createView>
             <column name="UPDATED_TS" type="TIMESTAMP(6)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-75">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-75">
         <createTable tableName="table-test">
             <column name="ID" type="NUMBER(*, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574228025351-76">
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-76">
         <createIndex indexName="AK_EXEMPLAR_PPD" tableName="T_EXEMPLAR" unique="true">
             <column name="EXEMPLAR_ID"/>
             <column name="PRICE_PER_DAY"/>
         </createIndex>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1574267246743-77" context="QA">
+        <createTable tableName="T_TABLE79">
+            <column name="ID" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
+            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
+            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
+        </createTable>
     </changeSet>
 </databaseChangeLog>
