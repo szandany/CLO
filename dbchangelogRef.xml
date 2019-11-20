@@ -720,6 +720,7 @@ and e.film_id=f.film_id</createView>
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
+            
         </createTable>
     </changeSet>
 </databaseChangeLog>
