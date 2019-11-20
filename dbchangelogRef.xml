@@ -712,7 +712,7 @@ and e.film_id=f.film_id</createView>
             <column name="UPDATED_TS" type="TIMESTAMP(6)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1574267246743-77" context="QA">
+    <changeSet author="Steve" id="7890" context="QA">
         <createTable tableName="T_TABLE79">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
@@ -720,7 +720,6 @@ and e.film_id=f.film_id</createView>
             <column name="NAME" type="VARCHAR2(20 BYTE)"/>
             <column name="REGION" type="VARCHAR2(20 BYTE)"/>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-            
         </createTable>
     </changeSet>
 </databaseChangeLog>
