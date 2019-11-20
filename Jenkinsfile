@@ -19,7 +19,7 @@ agent any
         echo "Current project: "$PROJ
         echo "Current scm branch: "$BRANCH
         echo "Current environment: "$ENVIRONMENT_STEP
-        export PATH=/Users/support.liquibase.net/liquibase-3.8.1-bin:$PATH
+        export PATH=/Users/support.liquibase.net/liquibase-3.8.2-bin:$PATH
         export JAVA_HOME=$(/usr/libexec/java_home)
 			'''
 		} // steps
