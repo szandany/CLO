@@ -722,4 +722,44 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
+    <changeSet author="Steve" id="7891" context="QA" labels="pipeline1,pipeline3">
+        <createTable tableName="T_TABLE80">
+            <column name="ID" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
+            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
+            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Steve" id="7892" context="UAT" labels="pipeline1,pipeline2">
+        <createTable tableName="T_TABLE81">
+            <column name="ID" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
+            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
+            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Steve" id="7893" context="PROD" labels="pipeline1">
+        <createTable tableName="T_TABLE82">
+            <column name="ID" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
+            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
+            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Steve" id="7893" context="UAT" labels="pipeline1,pipeline2">
+        <createTable tableName="Supa">
+            <column name="ID" type="NUMBER(*, 0)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
+            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
+            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
