@@ -10,6 +10,7 @@ agent any
   	ENVIRONMENT_STEP="${params.step}"
     BRANCH="${params.pipeline}"
     PATH="/Users/support.liquibase.net/liquibase-3.8.2-bin:$PATH"
+    JAVA_HOME=$(/usr/libexec/java_home)
   }
   stages {
 
@@ -20,8 +21,6 @@ agent any
         echo "Current project: "$PROJ
         echo "Current scm branch: "$BRANCH
         echo "Current environment: "$ENVIRONMENT_STEP
-        # export PATH=/Users/support.liquibase.net/liquibase-3.8.2-bin:$PATH
-        export JAVA_HOME=$(/usr/libexec/java_home)
 			'''
 		} // steps
 	} // stage 'precheck'
@@ -45,7 +44,6 @@ agent any
       steps {
         sh '''
           { set +x; } 2>/dev/null
-          # export PATH=/Users/support.liquibase.net/liquibase-3.8.2-bin:$PATH
           cd /Users/support.liquibase.net/workspace/${PROJ}/${ENVIRONMENT_STEP}
           liquibase --version
           echo "------------------------------------"
