@@ -10,7 +10,6 @@ agent any
   	ENVIRONMENT_STEP="${params.step}"
     BRANCH="${params.pipeline}"
     PATH="/Users/support.liquibase.net/liquibase-3.8.2-bin:$PATH"
-    JAVA_HOME="$(/usr/libexec/java_home)"
   }
   stages {
 
