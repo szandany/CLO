@@ -753,6 +753,11 @@ and e.film_id=f.film_id</createView>
         </createTable>
     </changeSet>
     <changeSet author="Steve" id="7894" context="UAT" labels="pipeline1,pipeline2">
+      <preConditions onFail="HALT" onFailMessage="wrong username" onSqlOutput="TEST">
+          <runningAs username="REF"/>
+          <sqlCheck expectedResult="Keren">SELECT NAME from "T_TABLE82" WHERE ID=1</sqlCheck>
+       </preConditions>
+        <!-- <comment>Comments should go after preCondition. If they are before then liquibase usually gives error.</comment> -->
         <createTable tableName="Supa">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
