@@ -9,7 +9,7 @@ agent any
   	GITURL="https://github.com/szandany"
   	ENVIRONMENT_STEP="${params.step}"
     BRANCH="${params.pipeline}"
-    PATH="/Users/support.liquibase.net/liquibase-3.8.2-bin:$PATH"
+    PATH="/Users/support.liquibase.net/liquibase-3.8.4-bin:$PATH"
   }
   stages {
 
@@ -38,7 +38,7 @@ agent any
           '''
       } // steps for checkout stages
     } // stage 'checkout'
-    
+
    stage ('liquibase commands'){
       steps {
         sh '''
