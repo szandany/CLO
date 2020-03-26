@@ -1,241 +1,157 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-1">
-        <createTable tableName="T_FILM">
-            <column name="FILM_ID" type="NUMBER(*, 0)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_FILM"/>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-1">
+        <createTable remarks="country table. Contains 25 rows. References with locations table." tableName="COUNTRIES">
+            <column name="COUNTRY_ID" remarks="Primary key of countries table." type="CHAR(2 BYTE)">
+                <constraints notNullConstraintName="COUNTRY_ID_NN" nullable="false" primaryKey="true" primaryKeyName="COUNTRY_C_ID_PK"/>
             </column>
-            <column name="TITLE" type="VARCHAR2(50 CHAR)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="DIRECTOR" type="VARCHAR2(30 CHAR)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="PRODUCTION_COMPANY" remarks="Company name must contain also information about company type - LTD, Inc. and so on." type="VARCHAR2(50 CHAR)"/>
-            <column name="GENRE_ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="MIN_AGE" type="NUMBER(*, 0)"/>
-            <column name="FILM_ID_EPISODES" type="NUMBER(*, 0)"/>
+            <column name="COUNTRY_NAME" remarks="Country name" type="VARCHAR2(40 BYTE)"/>
+            <column name="REGION_ID" remarks="Region ID for the country. Foreign key to region_id column in the departments table." type="NUMBER"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-2">
-        <createTable tableName="T_EXEMPLAR">
-            <column name="EXEMPLAR_ID" type="NUMBER(*, 0)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_EXEMPLAR"/>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-2">
+        <createTable remarks="jobs table with job titles and salary ranges. Contains 19 rows.&#10;References with employees and job_history table." tableName="JOBS">
+            <column name="JOB_ID" remarks="Primary key of jobs table." type="VARCHAR2(10 BYTE)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="JOB_ID_PK"/>
             </column>
-            <column name="FILM_ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
+            <column name="JOB_TITLE" remarks="A not null column that shows job title, e.g. AD_VP, FI_ACCOUNTANT" type="VARCHAR2(35 BYTE)">
+                <constraints notNullConstraintName="JOB_TITLE_NN" nullable="false"/>
             </column>
-            <column name="MEDIUM_ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="PRICE_PER_DAY" type="NUMBER(*, 0)"/>
+            <column name="MIN_SALARY" remarks="Minimum salary for a job title." type="NUMBER(6, 0)"/>
+            <column name="MAX_SALARY" remarks="Maximum salary for a job title" type="NUMBER(6, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-3">
-        <createView fullDefinition="true" viewName="V_CUSTOMER_HAS_FILM">CREATE OR REPLACE FORCE VIEW V_CUSTOMER_HAS_FILM (NAME, CITY, TITLE, DIRECTOR) AS SELECT DISTINCT c.name, c.city AS city, f.title, f.director
-FROM T_CUSTOMER c, T_BORROWING b, T_EXEMPLAR e, T_FILM f
-WHERE c.customer_id=b.customer_id
-and b.exemplar_id=e.exemplar_id
-and e.film_id=f.film_id</createView>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-4">
-        <createSequence cacheSize="0" maxValue="9999999999999999999999999999" sequenceName="SEQEXEMPLAR" startValue="14"/>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-5">
-        <createTable tableName="CLT_BENEFIT_VER2">
-            <column name="CLT_BENEFIT_VER_ID" type="NUMBER">
-                <constraints primaryKey="true" primaryKeyName="PK_CLT_BENEFIT_VER2"/>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-3">
+        <createTable remarks="Table that stores job history of the employees. If an employee &#10;changes departments within the job or changes jobs within the department, &#10;new rows get inserted into this table with old job information of the &#10;employee. Contains a complex primary key: employee_id+start_date.&#10;Contains 25 rows. References with jobs, employees, and departments tables." tableName="JOB_HISTORY">
+            <column name="EMPLOYEE_ID" remarks="A not null column in the complex primary key employee_id+start_date.&#10;Foreign key to employee_id column of the employee table" type="NUMBER(6, 0)">
+                <constraints notNullConstraintName="JHIST_EMPLOYEE_NN" nullable="false" primaryKey="true" primaryKeyName="JHIST_EMP_ID_ST_DATE_PK"/>
             </column>
-            <column defaultValueComputed="SYSDATE" name="ENTERED" type="date">
-                <constraints nullable="false"/>
+            <column name="START_DATE" remarks="A not null column in the complex primary key employee_id+start_date. &#10;Must be less than the end_date of the job_history table. (enforced by &#10;constraint jhist_date_interval)" type="date">
+                <constraints notNullConstraintName="JHIST_START_DATE_NN" nullable="false" primaryKey="true" primaryKeyName="JHIST_EMP_ID_ST_DATE_PK"/>
             </column>
-            <column defaultValueComputed="USER" name="ENTERED_BY" type="VARCHAR2(30 BYTE)">
-                <constraints nullable="false"/>
+            <column name="END_DATE" remarks="Last day of the employee in this job role. A not null column. Must be &#10;greater than the start_date of the job_history table. &#10;(enforced by constraint jhist_date_interval)" type="date">
+                <constraints notNullConstraintName="JHIST_END_DATE_NN" nullable="false"/>
             </column>
-            <column name="CLT_BENEFIT_ID" type="NUMBER"/>
-            <column name="CLT_BENEFIT_REQ_ID" type="NUMBER">
-                <constraints nullable="false"/>
+            <column name="JOB_ID" remarks="Job role in which the employee worked in the past; foreign key to &#10;job_id column in the jobs table. A not null column." type="VARCHAR2(10 BYTE)">
+                <constraints notNullConstraintName="JHIST_JOB_NN" nullable="false"/>
             </column>
-            <column name="VERSION_NUM" type="NUMBER"/>
-            <column name="CLIENT_BENEFIT_CODE" type="VARCHAR2(30 BYTE)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="HQ_HDR_ID" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="REP_CARRIER_HQ_CODE" type="VARCHAR2(30 BYTE)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="REP_CARRIER_HQ_ID" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="REQUESTED" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="BENEFIT_DESC" type="VARCHAR2(100 BYTE)"/>
-            <column name="LINE_OF_BUSINESS" type="VARCHAR2(30 BYTE)"/>
-            <column name="PLAN_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="SERVICE_AREA" type="VARCHAR2(30 BYTE)"/>
-            <column name="MARKET_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="STATE_CODES" type="VARCHAR2(200 BYTE)"/>
-            <column name="FORMULARY_TYPE_CODE" type="VARCHAR2(30 BYTE)"/>
-            <column name="NUMBER_OF_TIERS" type="NUMBER"/>
-            <column name="COST_SHARING_TIER_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="ACCUM_RESET_PERIOD_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="BENEFIT_START_DATE" type="date"/>
-            <column name="BENEFIT_END_DATE" type="date"/>
-            <column name="BSP_EDIT_START_DATE" type="date"/>
-            <column name="VERSION_EFFECTIVE_DATE" type="date"/>
-            <column name="VERSION_STATUS" type="VARCHAR2(30 BYTE)"/>
-            <column name="FRML_IDENT" type="VARCHAR2(30 BYTE)"/>
-            <column name="COMMENTS" type="VARCHAR2(200 BYTE)"/>
+            <column name="DEPARTMENT_ID" remarks="Department id in which the employee worked in the past; foreign key to deparment_id column in the departments table" type="NUMBER(4, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-6">
-        <createTable tableName="CLT_BENEFIT_VER3">
-            <column name="CLT_BENEFIT_VER_ID" type="NUMBER">
-                <constraints primaryKey="true" primaryKeyName="PK_CLT_BENEFIT_VER3"/>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-4">
+        <createTable tableName="REGIONS">
+            <column name="REGION_ID" type="NUMBER">
+                <constraints notNullConstraintName="REGION_ID_NN" nullable="false" primaryKey="true" primaryKeyName="REG_ID_PK"/>
             </column>
-            <column defaultValueComputed="SYSDATE" name="ENTERED" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueComputed="USER" name="ENTERED_BY" type="VARCHAR2(30 BYTE)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="CLT_BENEFIT_ID" type="NUMBER"/>
-            <column name="CLT_BENEFIT_REQ_ID" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="VERSION_NUM" type="NUMBER"/>
-            <column name="CLIENT_BENEFIT_CODE" type="VARCHAR2(30 BYTE)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="HQ_HDR_ID" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="REP_CARRIER_HQ_CODE" type="VARCHAR2(30 BYTE)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="REP_CARRIER_HQ_ID" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="REQUESTED" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="BENEFIT_DESC" type="VARCHAR2(100 BYTE)"/>
-            <column name="LINE_OF_BUSINESS" type="VARCHAR2(30 BYTE)"/>
-            <column name="PLAN_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="SERVICE_AREA" type="VARCHAR2(30 BYTE)"/>
-            <column name="MARKET_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="STATE_CODES" type="VARCHAR2(200 BYTE)"/>
-            <column name="FORMULARY_TYPE_CODE" type="VARCHAR2(30 BYTE)"/>
-            <column name="NUMBER_OF_TIERS" type="NUMBER"/>
-            <column name="COST_SHARING_TIER_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="ACCUM_RESET_PERIOD_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="BENEFIT_START_DATE" type="date"/>
-            <column name="BENEFIT_END_DATE" type="date"/>
-            <column name="BSP_EDIT_START_DATE" type="date"/>
-            <column name="VERSION_EFFECTIVE_DATE" type="date"/>
-            <column name="VERSION_STATUS" type="VARCHAR2(30 BYTE)"/>
-            <column name="FRML_IDENT" type="VARCHAR2(30 BYTE)"/>
-            <column name="COMMENTS" type="VARCHAR2(200 BYTE)"/>
+            <column name="REGION_NAME" type="VARCHAR2(25 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-7">
-        <createTable tableName="CLT_BENEFIT_VER4">
-            <column name="CLT_BENEFIT_VER_ID" type="NUMBER">
-                <constraints primaryKey="true" primaryKeyName="PK_CLT_BENEFIT_VER4"/>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-5">
+        <createTable tableName="LOCATIONS">
+            <column name="LOCATION_ID" remarks="Primary key of locations table" type="NUMBER(4, 0)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="LOC_ID_PK"/>
             </column>
-            <column defaultValueComputed="SYSDATE" name="ENTERED" type="date">
-                <constraints nullable="false"/>
+            <column name="STREET_ADDRESS" remarks="Street address of an office, warehouse, or production site of a company.&#10;Contains building number and street name" type="VARCHAR2(40 BYTE)"/>
+            <column name="POSTAL_CODE" remarks="Postal code of the location of an office, warehouse, or production site &#10;of a company." type="VARCHAR2(12 BYTE)"/>
+            <column name="CITY" remarks="A not null column that shows city where an office, warehouse, or &#10;production site of a company is located." type="VARCHAR2(30 BYTE)">
+                <constraints notNullConstraintName="LOC_CITY_NN" nullable="false"/>
             </column>
-            <column defaultValueComputed="USER" name="ENTERED_BY" type="VARCHAR2(30 BYTE)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="CLT_BENEFIT_ID" type="NUMBER"/>
-            <column name="CLT_BENEFIT_REQ_ID" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="VERSION_NUM" type="NUMBER"/>
-            <column name="CLIENT_BENEFIT_CODE" type="VARCHAR2(30 BYTE)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="HQ_HDR_ID" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="REP_CARRIER_HQ_CODE" type="VARCHAR2(30 BYTE)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="REP_CARRIER_HQ_ID" type="NUMBER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="REQUESTED" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="BENEFIT_DESC" type="VARCHAR2(100 BYTE)"/>
-            <column name="LINE_OF_BUSINESS" type="VARCHAR2(30 BYTE)"/>
-            <column name="PLAN_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="SERVICE_AREA" type="VARCHAR2(30 BYTE)"/>
-            <column name="MARKET_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="STATE_CODES" type="VARCHAR2(200 BYTE)"/>
-            <column name="FORMULARY_TYPE_CODE" type="VARCHAR2(30 BYTE)"/>
-            <column name="NUMBER_OF_TIERS" type="NUMBER"/>
-            <column name="COST_SHARING_TIER_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="ACCUM_RESET_PERIOD_TYPE" type="VARCHAR2(30 BYTE)"/>
-            <column name="BENEFIT_START_DATE" type="date"/>
-            <column name="BENEFIT_END_DATE" type="date"/>
-            <column name="BSP_EDIT_START_DATE" type="date"/>
-            <column name="VERSION_EFFECTIVE_DATE" type="date"/>
-            <column name="VERSION_STATUS" type="VARCHAR2(30 BYTE)"/>
-            <column name="FRML_IDENT" type="VARCHAR2(30 BYTE)"/>
-            <column name="COMMENTS" type="VARCHAR2(200 BYTE)"/>
+            <column name="STATE_PROVINCE" remarks="State or Province where an office, warehouse, or production site of a &#10;company is located." type="VARCHAR2(25 BYTE)"/>
+            <column name="COUNTRY_ID" remarks="Country where an office, warehouse, or production site of a company is&#10;located. Foreign key to country_id column of the countries table." type="CHAR(2 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-8">
-        <createTable tableName="Izzy's Table">
-            <column name="ID" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-9">
-        <createTable tableName="MYTABLE2222">
-            <column name="COLUMN1" type="NUMBER"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-10">
-        <createTable tableName="ORDERS">
-            <column name="ORDER_ID" type="NUMBER(5, 0)"/>
-            <column name="QUANTITY" type="NUMBER(4, 0)"/>
-            <column name="COST_PER_ITEM" type="NUMBER(6, 2)"/>
-            <column name="TOTAL_COST" type="NUMBER(8, 2)"/>
-            <column name="CREATE_DATE" type="date"/>
-            <column name="CREATED_BY" type="VARCHAR2(10 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-11">
-        <createTable tableName="PERSON_ADDRESS_DETAILS">
-            <column name="PERSON_ADDRESS_ID" type="NUMBER(5, 0)">
-                <constraints primaryKey="true" primaryKeyName="SYS_C0026751"/>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-6">
+        <createTable remarks="employees table. Contains 107 rows. References with departments, &#10;jobs, job_history tables. Contains a self reference." tableName="EMPLOYEES">
+            <column name="EMPLOYEE_ID" remarks="Primary key of employees table." type="NUMBER(6, 0)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="EMP_EMP_ID_PK"/>
             </column>
-            <column name="PERSON_ID" type="NUMBER(5, 0)"/>
-            <column name="CITY" type="VARCHAR2(15 BYTE)"/>
-            <column name="STATE" type="VARCHAR2(15 BYTE)"/>
-            <column name="COUNTRY" type="VARCHAR2(20 BYTE)"/>
-            <column name="ZIP_CODE" type="VARCHAR2(10 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-12">
-        <createTable tableName="PERSON_INFO">
-            <column name="PERSON_ID" type="NUMBER(5, 0)">
-                <constraints primaryKey="true" primaryKeyName="SYS_C0026750"/>
+            <column name="FIRST_NAME" remarks="First name of the employee. A not null column." type="VARCHAR2(20 BYTE)"/>
+            <column name="LAST_NAME" remarks="Last name of the employee. A not null column." type="VARCHAR2(25 BYTE)">
+                <constraints notNullConstraintName="EMP_LAST_NAME_NN" nullable="false"/>
             </column>
-            <column name="FIRST_NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="LAST_NAME" type="VARCHAR2(20 BYTE)"/>
+            <column name="EMAIL" remarks="Email id of the employee" type="VARCHAR2(25 BYTE)">
+                <constraints notNullConstraintName="EMP_EMAIL_NN" nullable="false"/>
+            </column>
+            <column name="PHONE_NUMBER" remarks="Phone number of the employee; includes country code and area code" type="VARCHAR2(20 BYTE)"/>
+            <column name="HIRE_DATE" remarks="Date when the employee started on this job. A not null column." type="date">
+                <constraints notNullConstraintName="EMP_HIRE_DATE_NN" nullable="false"/>
+            </column>
+            <column name="JOB_ID" remarks="Current job of the employee; foreign key to job_id column of the &#10;jobs table. A not null column." type="VARCHAR2(10 BYTE)">
+                <constraints notNullConstraintName="EMP_JOB_NN" nullable="false"/>
+            </column>
+            <column name="SALARY" remarks="Monthly salary of the employee. Must be greater &#10;than zero (enforced by constraint emp_salary_min)" type="NUMBER(8, 2)"/>
+            <column name="COMMISSION_PCT" remarks="Commission percentage of the employee; Only employees in sales &#10;department elgible for commission percentage" type="NUMBER(2, 2)"/>
+            <column name="MANAGER_ID" remarks="Manager id of the employee; has same domain as manager_id in &#10;departments table. Foreign key to employee_id column of employees table.&#10;(useful for reflexive joins and CONNECT BY query)" type="NUMBER(6, 0)"/>
+            <column name="DEPARTMENT_ID" remarks="Department id where employee works; foreign key to department_id &#10;column of the departments table" type="NUMBER(4, 0)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-13">
-        <createTable tableName="S_TABLE208">
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-7">
+        <createProcedure path="objects/storedprocedure/SECURE_DML.sql" procedureName="SECURE_DML" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-8">
+        <createTable remarks="Departments table that shows details of departments where employees &#10;work. Contains 27 rows; references with locations, employees, and job_history tables." tableName="DEPARTMENTS">
+            <column name="DEPARTMENT_ID" remarks="Primary key column of departments table." type="NUMBER(4, 0)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="DEPT_ID_PK"/>
+            </column>
+            <column name="DEPARTMENT_NAME" remarks="A not null column that shows name of a department. Administration, &#10;Marketing, Purchasing, Human Resources, Shipping, IT, Executive, Public &#10;Relations, Sales, Finance, and Accounting." type="VARCHAR2(30 BYTE)">
+                <constraints notNullConstraintName="DEPT_NAME_NN" nullable="false"/>
+            </column>
+            <column name="MANAGER_ID" remarks="Manager_id of a department. Foreign key to employee_id column of employees table. The manager_id column of the employee table references this column." type="NUMBER(6, 0)"/>
+            <column name="LOCATION_ID" remarks="Location id where a department is located. Foreign key to location_id column of locations table." type="NUMBER(4, 0)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-9">
+        <createView fullDefinition="true" viewName="EMP_DETAILS_VIEW">CREATE OR REPLACE FORCE VIEW EMP_DETAILS_VIEW (EMPLOYEE_ID, JOB_ID, MANAGER_ID, DEPARTMENT_ID, LOCATION_ID, COUNTRY_ID, FIRST_NAME, LAST_NAME, SALARY, COMMISSION_PCT, DEPARTMENT_NAME, JOB_TITLE, CITY, STATE_PROVINCE, COUNTRY_NAME, REGION_NAME) AS SELECT
+  e.employee_id,
+  e.job_id,
+  e.manager_id,
+  e.department_id,
+  d.location_id,
+  l.country_id,
+  e.first_name,
+  e.last_name,
+  e.salary,
+  e.commission_pct,
+  d.department_name,
+  j.job_title,
+  l.city,
+  l.state_province,
+  c.country_name,
+  r.region_name
+FROM
+  employees e,
+  departments d,
+  jobs j,
+  locations l,
+  countries c,
+  regions r
+WHERE e.department_id = d.department_id
+  AND d.location_id = l.location_id
+  AND l.country_id = c.country_id
+  AND c.region_id = r.region_id
+  AND j.job_id = e.job_id
+WITH READ ONLY</createView>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-10">
+        <createProcedure path="objects/storedprocedure/ADD_JOB_HISTORY.sql" procedureName="ADD_JOB_HISTORY" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-11">
+        <pro:createTrigger disabled="false" path="objects/trigger/UPDATE_JOB_HISTORY.sql" relativeToChangelogFile="true" tableName="EMPLOYEES" triggerName="UPDATE_JOB_HISTORY"/>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-12">
+        <pro:createTrigger disabled="false" path="objects/trigger/SECURE_EMPLOYEES.sql" relativeToChangelogFile="true" tableName="EMPLOYEES" triggerName="SECURE_EMPLOYEES"/>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-13">
+        <createSequence cacheSize="0" incrementBy="10" maxValue="9990" sequenceName="DEPARTMENTS_SEQ" startValue="280"/>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-14">
+        <createSequence cacheSize="0" maxValue="9999999999999999999999999999" sequenceName="EMPLOYEES_SEQ" startValue="207"/>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-15">
+        <createSequence cacheSize="0" incrementBy="100" maxValue="9900" sequenceName="LOCATIONS_SEQ" startValue="3300"/>
+    </changeSet>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-16">
+        <createTable tableName="SALESTABLE">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
             </column>
@@ -244,8 +160,8 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-14">
-        <createTable tableName="S_TABLE209">
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-17">
+        <createTable tableName="T_TABLE82">
             <column name="ID" type="NUMBER(*, 0)">
                 <constraints nullable="false"/>
             </column>
@@ -254,464 +170,80 @@ and e.film_id=f.film_id</createView>
             <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
         </createTable>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-15">
-        <createTable tableName="TABLE1">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-18">
+        <pro:addCheckConstraint constraintName="EMP_SALARY_MIN" disabled="false" tableName="EMPLOYEES">salary &gt; 0</pro:addCheckConstraint>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-16">
-        <createTable remarks="This is a comment on table" tableName="TABLE2">
-            <column name="COLUMN1" remarks="This is a comment on column" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-19">
+        <createIndex indexName="EMP_EMAIL_UK" tableName="EMPLOYEES" unique="true">
+            <column name="EMAIL"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-17">
-        <createTable tableName="TABLE2012">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-20">
+        <addUniqueConstraint columnNames="EMAIL" constraintName="EMP_EMAIL_UK" forIndexName="EMP_EMAIL_UK" tableName="EMPLOYEES"/>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-18">
-        <createTable tableName="TABLE208">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-21">
+        <pro:createFunction functionName="EQ_F" path="objects/function/EQ_F.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-19">
-        <createTable tableName="TABLE542">
-            <column name="COLUMN1" type="CLOB"/>
-            <column name="COLUMN2" type="CLOB"/>
-            <column name="COLUMN3" type="CLOB"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-22">
+        <createIndex indexName="DEPT_LOCATION_IX" tableName="DEPARTMENTS">
+            <column name="LOCATION_ID"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-20">
-        <createTable tableName="TABLE77">
-            <column name="ID" type="NUMBER(*, 0)"/>
-            <column name="HOUSENUM" type="NUMBER(*, 0)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-23">
+        <createIndex indexName="EMP_DEPARTMENT_IX" tableName="EMPLOYEES">
+            <column name="DEPARTMENT_ID"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-21">
-        <createTable tableName="TABLE778">
-            <column name="ID" type="NUMBER(*, 0)"/>
-            <column name="HOUSENUM" type="NUMBER(*, 0)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-24">
+        <createIndex indexName="EMP_JOB_IX" tableName="EMPLOYEES">
+            <column name="JOB_ID"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-22">
-        <createTable tableName="TABLE779">
-            <column name="ID" type="NUMBER(*, 0)"/>
-            <column name="HOUSENUM" type="NUMBER(*, 0)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-25">
+        <createIndex indexName="EMP_MANAGER_IX" tableName="EMPLOYEES">
+            <column name="MANAGER_ID"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-23">
-        <createTable tableName="TABLE780">
-            <column name="ID" type="NUMBER(*, 0)"/>
-            <column name="HOUSENUM" type="NUMBER(*, 0)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-26">
+        <createIndex indexName="EMP_NAME_IX" tableName="EMPLOYEES">
+            <column name="LAST_NAME"/>
+            <column name="FIRST_NAME"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-24">
-        <createTable tableName="TABLE89">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-27">
+        <createIndex indexName="LOC_CITY_IX" tableName="LOCATIONS">
+            <column name="CITY"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-25">
-        <createTable tableName="TABLE892">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-28">
+        <createIndex indexName="LOC_COUNTRY_IX" tableName="LOCATIONS">
+            <column name="COUNTRY_ID"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-26">
-        <createTable tableName="TABLE893">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-29">
+        <createIndex indexName="LOC_STATE_PROVINCE_IX" tableName="LOCATIONS">
+            <column name="STATE_PROVINCE"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-27">
-        <createTable tableName="TABLE894">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-30">
+        <addForeignKeyConstraint baseColumnNames="REGION_ID" baseTableName="COUNTRIES" constraintName="COUNTR_REG_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="REGION_ID" referencedTableName="REGIONS" validate="true"/>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-28">
-        <createTable tableName="TABLE896">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-31">
+        <addForeignKeyConstraint baseColumnNames="LOCATION_ID" baseTableName="DEPARTMENTS" constraintName="DEPT_LOC_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="LOCATION_ID" referencedTableName="LOCATIONS" validate="true"/>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-29">
-        <createTable tableName="TABLE897">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-32">
+        <addForeignKeyConstraint baseColumnNames="MANAGER_ID" baseTableName="DEPARTMENTS" constraintName="DEPT_MGR_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="EMPLOYEE_ID" referencedTableName="EMPLOYEES" validate="true"/>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-30">
-        <createTable tableName="TABLE899">
-            <column name="COLUMN1" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-33">
+        <addForeignKeyConstraint baseColumnNames="DEPARTMENT_ID" baseTableName="EMPLOYEES" constraintName="EMP_DEPT_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="DEPARTMENT_ID" referencedTableName="DEPARTMENTS" validate="true"/>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-31">
-        <createTable tableName="TEST1017">
-            <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-34">
+        <addForeignKeyConstraint baseColumnNames="JOB_ID" baseTableName="EMPLOYEES" constraintName="EMP_JOB_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="JOB_ID" referencedTableName="JOBS" validate="true"/>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-32">
-        <createTable tableName="TEST1022">
-            <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-35">
+        <addForeignKeyConstraint baseColumnNames="MANAGER_ID" baseTableName="EMPLOYEES" constraintName="EMP_MANAGER_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="EMPLOYEE_ID" referencedTableName="EMPLOYEES" validate="true"/>
     </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-33">
-        <createTable remarks="This is a comment for the table" tableName="TEST1109">
-            <column name="CUSTOMER_ID" remarks="This is comment for the column" type="NUMBER(10, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-34">
-        <createTable tableName="TEST957">
-            <column name="CUSTOMER_ID" remarks="This is comment for the column" type="NUMBER(10, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-35">
-        <createTable tableName="TSVITEST">
-            <column name="CUSTOMER_ID" type="NUMBER(10, 0)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-36">
-        <createTable tableName="TSVITEST105">
-            <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-37">
-        <createTable tableName="TSVITEST123">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-38">
-        <createTable tableName="TSVITEST12322">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-39">
-        <createTable tableName="TSVITEST1234">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-40">
-        <createTable tableName="TSVITEST142">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-            <column name="WEIGHT" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-41">
-        <createTable tableName="TSVITEST203">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-            <column name="WEIGHT" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-42">
-        <createTable tableName="TSVITEST220">
-            <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-43">
-        <createTable tableName="TSVITEST2207">
-            <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-44">
-        <createTable tableName="TSVITEST22207">
-            <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
-            <column name="HOUSENUMBER" type="NUMBER"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-45">
-        <createTable tableName="TSVITEST222077">
-            <column name="ID" type="NUMBER(*, 0)"/>
-            <column name="HOUSENUM" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-46">
-        <createTable tableName="TSVITEST22207XYZ">
-            <column name="CUSTOMER_ID" type="NUMBER(10, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-47">
-        <createTable tableName="TSVITEST306">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-            <column name="WEIGHT" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-48">
-        <createTable tableName="TSVITEST321">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-49">
-        <createTable tableName="TSVITEST4321">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-            <column name="WEIGHT" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-50">
-        <createTable tableName="TSVITEST432167">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-            <column name="WEIGHT" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-51">
-        <createTable tableName="TSVITEST4R2167">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-            <column name="WEIGHT" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-52">
-        <createTable tableName="TSVIZ345">
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-            <column name="WEIGHT" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-53">
-        <createTable tableName="T_CUSTOMER">
-            <column name="CUSTOMER_ID" type="NUMBER(*, 0)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_CUSTOMER"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 CHAR)"/>
-            <column name="SURNAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="FACEBOOK" type="VARCHAR2(20 BYTE)"/>
-            <column name="TWITTER" type="VARCHAR2(20 BYTE)"/>
-            <column name="LINKEDIN" type="VARCHAR2(20 BYTE)"/>
-            <column name="ADDRESS" type="VARCHAR2(40 BYTE)"/>
-            <column name="ZIPCODE" type="VARCHAR2(10 BYTE)"/>
-            <column name="CITY" type="VARCHAR2(30 BYTE)"/>
-            <column name="STATE_PROV" type="VARCHAR2(10 BYTE)"/>
-            <column name="COUNTRY" type="CHAR(2 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-54">
-        <createTable tableName="T_CUSTOMER_BAK">
-            <column name="CUSTOMER_ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" remarks="Name column can contain First and Middle name. Surname must be in different column." type="VARCHAR2(20 CHAR)"/>
-            <column name="SURNAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="ADDRESS" type="VARCHAR2(40 BYTE)"/>
-            <column name="ZIPCODE" type="VARCHAR2(10 BYTE)"/>
-            <column name="CITY" type="VARCHAR2(30 BYTE)"/>
-            <column name="STATE_PROV" type="VARCHAR2(10 BYTE)"/>
-            <column name="COUNTRY" type="CHAR(2 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-55">
-        <createTable remarks="Movie ratings (by customers)" tableName="T_CUSTOMER_RATING">
-            <column name="TITLE" type="VARCHAR2(50 CHAR)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_CUSTOMER_RATING"/>
-            </column>
-            <column name="DIRECTOR" type="VARCHAR2(30 CHAR)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_CUSTOMER_RATING"/>
-            </column>
-            <column defaultValueNumeric="3" name="RATING" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-56">
-        <createTable tableName="T_GENRE">
-            <column name="GENRE_ID" type="NUMBER(*, 0)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_GENRE"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 CHAR)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-57">
-        <createTable tableName="T_MEDIUM">
-            <column name="MEDIUM_ID" type="NUMBER(*, 0)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_MEDIUM"/>
-            </column>
-            <column name="MEDIUM_TYPE" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-58">
-        <createTable remarks="All records are stored in list of records. It will be possible to book a movie." tableName="T_ORDER_RECORD">
-            <column name="CUSTOMER_ID" type="NUMBER(*, 0)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_ORDER_RECORD"/>
-            </column>
-            <column name="FILM_ID" type="NUMBER(*, 0)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_ORDER_RECORD"/>
-            </column>
-            <column name="ORDER_DATE" type="date"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-59">
-        <createTable tableName="T_RESELLER">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints primaryKey="true" primaryKeyName="PK_T_RESELLER"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-60">
-        <createTable tableName="T_RESELLER101">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-61">
-        <createTable tableName="T_TABLE62">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-62">
-        <createTable tableName="T_TABLE66">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-63">
-        <createTable tableName="T_TABLE67">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-64">
-        <createTable tableName="T_TABLE68">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-65">
-        <createTable tableName="T_TABLE7">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-66">
-        <createTable tableName="T_TABLE77">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-67">
-        <createTable tableName="T_TABLE78">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-68">
-        <createTable tableName="WORK_ITEM_SRC">
-            <column name="WORK_ITEM_SRC_SID" type="NUMBER(*, 0)">
-                <constraints primaryKey="true" primaryKeyName="PK_WORK_ITEM_SRC"/>
-            </column>
-            <column name="WORK_ITEM_SRC_NM" type="VARCHAR2(40 BYTE)"/>
-            <column name="WORK_ITEM_SRC_APP_ID" type="VARCHAR2(40 BYTE)"/>
-            <column defaultValueComputed="USER" name="CREATED_BY_ID" type="VARCHAR2(20 BYTE)">
-                <constraints nullable="false"/>
-            </column>
-            <column defaultValueComputed="SYSDATE" name="CREATED_TS" type="TIMESTAMP(6)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="UPDATED_BY_ID" type="VARCHAR2(20 BYTE)"/>
-            <column name="UPDATED_TS" type="TIMESTAMP(6)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="1573061755492-69">
-        <createTable tableName="table-test">
-            <column name="ID" type="NUMBER(*, 0)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="157306175549r323f">
-        <createTable tableName="T_TABLE67764">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="15730617554532658">
-        <createTable tableName="T_TABLE67432">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-
-    <changeSet author="support.liquibase.net (generated)" id="1573043258">
-        <preConditions onFail="HALT">
-                <dbms type="oracle" />
-        </preConditions>
-        <createTable tableName="T_TABLE67434322">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="support.liquibase.net (generated)" id="15730434325258">
-          <preConditions onFail="WARN">
-                <dbms type="mysql" />
-        </preConditions>
-        <createTable tableName="T_TABLE674214322">
-            <column name="ID" type="NUMBER(*, 0)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR2(20 BYTE)"/>
-            <column name="REGION" type="VARCHAR2(20 BYTE)"/>
-            <column name="MARKET" type="VARCHAR2(20 BYTE)"/>
-        </createTable>
+    <changeSet author="support.liquibase.net (generated)" id="1585252954454-36">
+        <addForeignKeyConstraint baseColumnNames="COUNTRY_ID" baseTableName="LOCATIONS" constraintName="LOC_C_ID_FK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="COUNTRY_ID" referencedTableName="COUNTRIES" validate="true"/>
     </changeSet>
 </databaseChangeLog>
