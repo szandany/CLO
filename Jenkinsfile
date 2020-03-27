@@ -44,7 +44,7 @@ agent any
         sh '''
           { set +x; } 2>/dev/null
           cd /Users/support.liquibase.net/workspace/${PROJ}/${ENVIRONMENT_STEP}
-          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --version
+          liquibase --version
           echo "------------------------------------"
           echo "----------liquibase status----------"
           echo "------------------------------------"
