@@ -44,23 +44,23 @@ agent any
         sh '''
           { set +x; } 2>/dev/null
           cd /Users/support.liquibase.net/workspace/${PROJ}/${ENVIRONMENT_STEP}
-          liquibase --${ORACLE_URL} --${PASSWORD} --version
+          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --version
           echo "------------------------------------"
           echo "----------liquibase status----------"
           echo "------------------------------------"
-          liquibase --${ORACLE_URL} --${PASSWORD} --contexts=$ENVIRONMENT_STEP status
+          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status
           echo "---------------------------------------------"
           echo "----------liquibase rollbackCount=2----------"
           echo "---------------------------------------------"
-          liquibase --${ORACLE_URL} --${PASSWORD} --contexts=$ENVIRONMENT_STEP rollbackCount 2
+          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollbackCount 2
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
-          liquibase --${ORACLE_URL} --${PASSWORD} --contexts=$ENVIRONMENT_STEP updateSQL
+          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP updateSQL
           echo "------------------------------------"
           echo "----------liquibase update----------"
           echo "------------------------------------"
-          liquibase --${ORACLE_URL} --${PASSWORD} --contexts=$ENVIRONMENT_STEP update
+          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP update
         '''
       } // steps
     }   // Environment stage
