@@ -33,7 +33,11 @@ pipeline {
       steps {
 
         // checkout Liquibase project from CLO repo
-
+        bat '''
+        echo "Current project: "%PROJ%
+        echo "Current scm branch: "%BRANCH%
+        echo "Current environment: "%ENVIRONMENT_STEP%
+        '''
       } // steps for checkout stages
     } // stage 'checkout'
   }   // stages
