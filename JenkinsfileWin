@@ -11,5 +11,18 @@ agent any
     BRANCH="${params.pipeline}"
     PATH="C:\\apps\\liquibase;C:\\apps\\Git\\cmd;${PATH}"
   }
+  stages {
 
+    stage ('Precheck') {
+		steps {
+			bat '''
+        echo "Current project: "%PROJ%
+        echo "Current scm branch: "%BRANCH%
+        echo "Current environment: "%ENVIRONMENT_STEP%
+			'''
+		} // steps
+	} // stage 'precheck'
+
+  
+  } // stages
 }  // pipeline
