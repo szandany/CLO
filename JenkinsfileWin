@@ -11,8 +11,5 @@ agent any
     BRANCH="${params.pipeline}"
     PATH="C:\\apps\\liquibase;C:\\apps\\Git\\cmd;${PATH}"
   }
-  stages {
 
-  
-  } // stages
 }  // pipeline
