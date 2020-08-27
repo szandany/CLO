@@ -66,8 +66,8 @@ agent any
              bat '''
                echo "Deleting project workspace..."
                cd ..
-               del /q workspace\\*
-               for /d %%x in (workspace\\*) do @rd /s /q "%%x"
+               REM del /q workspace\\*
+               REM for /d %%x in (workspace\\*) do @rd /s /q "%%x"
              '''
            } // steps
          }   // Deleting project workspace
