@@ -21,9 +21,9 @@ pipeline {
         steps {
             deleteDir()
             bat '''
-            echo "Current project: "%PROJ%
-            echo "Current scm branch: "%BRANCH%
-            echo "Current environment: "%ENVIRONMENT_STEP%
+            echo "Current project: "
+            echo "Current scm branch: "
+            echo "Current environment: "
             '''
 
         } // steps
