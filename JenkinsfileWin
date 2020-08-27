@@ -1,0 +1,75 @@
+#!/usr/bin/env groovy
+// Liquibase declarative pipeline
+//
+//
+pipeline {
+agent any
+  environment {
+    set PROJ="CLO"
+  	set GITURL="https://github.com/szandany"
+  	set ENVIRONMENT_STEP=%params.step%
+    set BRANCH=%params.pipeline%
+    set PATH=C:\apps\liquibase;C:\apps\Git\cmd;%PATH%
+  }
+  stages {
+
+    stage ('Precheck') {
+		steps {
+			bat '''
+        echo "Current project: "%PROJ%
+        echo "Current scm branch: "%BRANCH%
+        echo "Current environment: "%ENVIRONMENT_STEP%
+			'''
+		} // steps
+	} // stage 'precheck'
+
+    stage ('Checkout') {
+      steps {
+        // checkout Liquibase project from CLO repo
+        bat '''
+          if exist %PROJ% @RD /S /Q %PROJ%
+          git clone %GITURL%/%PROJ%.git
+          cd %PROJ%
+          git checkout %BRANCH%
+          git status
+          '''
+      } // steps for checkout stages
+    } // stage 'checkout'
+
+   stage ('liquibase commands'){
+      steps {
+        bat '''
+          cd %PROJ%/%ENVIRONMENT_STEP%
+          liquibase --version
+          echo "------------------------------------"
+          echo "----------liquibase status----------"
+          echo "------------------------------------"
+          liquibase --liquibaseProLicenseKey=%LB_PRO_KEY% --url=%ORACLE_URL% --password=%PASSWORD% --contexts=%ENVIRONMENT_STEP% status
+          echo "---------------------------------------------"
+          echo "----------liquibase rollbackCount=2----------"
+          echo "---------------------------------------------"
+          liquibase --liquibaseProLicenseKey=%LB_PRO_KEY% --url=%ORACLE_URL% --password=%PASSWORD% --contexts=%ENVIRONMENT_STEP% rollbackCount 2
+          echo "---------------------------------------"
+          echo "----------liquibase updateSQL----------"
+          echo "---------------------------------------"
+          liquibase --liquibaseProLicenseKey=%LB_PRO_KEY% --url=%ORACLE_URL% --password=%PASSWORD% --contexts=%ENVIRONMENT_STEP% updateSQL
+          echo "------------------------------------"
+          echo "----------liquibase update----------"
+          echo "------------------------------------"
+          liquibase --liquibaseProLicenseKey=%LB_PRO_KEY% --url=%ORACLE_URL% --password=%PASSWORD% --contexts=%ENVIRONMENT_STEP% update
+        '''
+      } // steps
+    }   // Environment stage
+
+        stage ('Deleting project workspace'){
+           steps {
+             bat '''
+               echo "Deleting project workspace..."
+               cd ..
+               del /q workspace\*
+               for /d %%x in (workspace\*) do @rd /s /q "%%x"
+             '''
+           } // steps
+         }   // Deleting project workspace
+  } // stages
+}  // pipeline
