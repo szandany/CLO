@@ -7,18 +7,18 @@ agent any
   environment {
     PROJ="CLO"
   	GITURL="https://github.com/szandany"
-//  	ENVIRONMENT_STEP="${params.step}"
-//    BRANCH="${params.pipeline}"
-  //  PATH="C:\\apps\\liquibase;C:\\apps\\Git\\cmd;${PATH}"
+  	ENVIRONMENT_STEP="${params.step}"
+    BRANCH="${params.pipeline}"
+    PATH="C:\\apps\\liquibase;C:\\apps\\Git\\cmd;${PATH}"
   }
   stages {
 
     stage ('Precheck') {
 		steps {
-			bat '''
-        echo "Current project: "%PROJ%
-        echo "Current scm branch: "%BRANCH%
-        echo "Current environment: "%ENVIRONMENT_STEP%
+		bat '''
+    REM  echo "Current project: "%PROJ%
+    REM  echo "Current scm branch: "%BRANCH%
+    REM  echo "Current environment: "%ENVIRONMENT_STEP%
 			'''
 		} // steps
 	} // stage 'precheck'
