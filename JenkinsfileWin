@@ -33,13 +33,7 @@ pipeline {
       steps {
 
         // checkout Liquibase project from CLO repo
-        bat '''
-          REM if exist %PROJ% @RD /S /Q %PROJ%
-          git clone %GITURL%/%PROJ%.git
-          cd %PROJ%
-          git checkout %BRANCH%
-          git status
-          '''
+
       } // steps for checkout stages
     } // stage 'checkout'
   }   // stages
