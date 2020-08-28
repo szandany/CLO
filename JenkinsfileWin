@@ -20,12 +20,6 @@ pipeline {
     stage ('Precheck') {
         steps {
             deleteDir()
-            bat '''
-            echo "Current project: "
-            echo "Current scm branch: "
-            echo "Current environment: "
-            '''
-
         } // steps
     } // stage 'precheck'
 
