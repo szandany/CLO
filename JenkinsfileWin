@@ -38,7 +38,7 @@ agent any
    stage ('liquibase commands'){
       steps {
         bat '''
-	  set PATH="C:\Program Files\liquibase\liquibase;%PATH%"
+	  set PATH = "C:\Program Files\liquibase\liquibase;%PATH%"
           cd %PROJ%/%ENVIRONMENT_STEP%
           liquibase --version
           echo "------------------------------------"
