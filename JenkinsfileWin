@@ -9,7 +9,7 @@ agent any
   	GITURL="https://github.com/szandany"
   	ENVIRONMENT_STEP="${params.step}"
         BRANCH="${params.pipeline}"
-	PATH="C:\\Program Files\\liquibase\\liquibase;${PATH}"
+	PATH="C:\\Program Files\\liquibase\\liquibase;${env.PATH}"
   }
   stages {
 
