@@ -49,22 +49,22 @@ agent any
           echo "------------------------------------"
           echo "----------liquibase status----------"
           echo "------------------------------------"
-          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status --verbose
+          liquibase --liquibaseProLicenseKey=${LB_PRO_KEY} --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status --verbose
           echo "---------------------------------------------"
           echo "----------liquibase tag version1----------"
           echo "---------------------------------------------"
-          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP tag version1
+          liquibase --liquibaseProLicenseKey=${LB_PRO_KEY} --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP tag version1
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
-          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP updateSQL
+          liquibase --liquibaseProLicenseKey=${LB_PRO_KEY} --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP updateSQL
           echo "------------------------------------"
           echo "----------liquibase update----------"
           echo "------------------------------------"
-          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP update
+          liquibase --liquibaseProLicenseKey=${LB_PRO_KEY} --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP update
           echo "----------liquibase rollback to tag 'version1' ----------"
           echo "---------------------------------------------------------"
-          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollback version1
+          liquibase --liquibaseProLicenseKey=${LB_PRO_KEY} --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollback version1
         '''
       } // steps
     }   // Environment stage
