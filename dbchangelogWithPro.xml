@@ -183,6 +183,9 @@ WITH READ ONLY</createView>
     </changeSet>
     <changeSet author="support.liquibase.net (generated)" id="1585252954454-21">
         <pro:createFunction functionName="EQ_F" path="objects/function/EQ_F.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            DROP FUNCTION EQ_F;
+        </rollback>
     </changeSet>
     <changeSet author="support.liquibase.net (generated)" id="1585252954454-22">
         <createIndex indexName="DEPT_LOCATION_IX" tableName="DEPARTMENTS">
