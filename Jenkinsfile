@@ -6,8 +6,8 @@ pipeline {
 agent any
   environment {
     PROJ="CLO"
-  	GITURL="https://github.com/szandany"
-  	ENVIRONMENT_STEP="${params.step}"
+    GITURL="https://github.com/szandany"
+    ENVIRONMENT_STEP="${params.step}"
     BRANCH="${params.pipeline}"
     PATH="/Users/support.liquibase.net/liquibase:$PATH"
   }
@@ -48,7 +48,7 @@ agent any
           echo "------------------------------------"
           echo "----------liquibase status----------"
           echo "------------------------------------"
-          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status
           echo "---------------------------------------------"
           echo "----------liquibase tag version1----------"
           echo "---------------------------------------------"
@@ -56,7 +56,7 @@ agent any
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
-          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP updateSQL
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP updateSQL
           echo "------------------------------------"
           echo "----------liquibase update----------"
           echo "------------------------------------"
