@@ -44,7 +44,7 @@ agent any
         sh '''
           { set +x; } 2>/dev/null
           cd /Users/support.liquibase.net/workspace/${PROJ}/${ENVIRONMENT_STEP}
-          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollbackCount 80
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP dropAll
           liquibase --version
           echo "------------------------------------"
           echo "----------liquibase status----------"
