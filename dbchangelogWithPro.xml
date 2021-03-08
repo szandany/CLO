@@ -179,7 +179,7 @@ WITH READ ONLY</createView>
         </createIndex>
     </changeSet>
     <changeSet author="support.liquibase.net (generated)" id="1585252954454-20">
-        <addUniqueConstraint columnNames="EMAIL" constraintName="EMP_EMAIL_UK" forIndexName="EMP_EMAIL_UK" tableName="EMPLOYEES"/>
+        <addUniqueConstraint columnNames="EMAIL" constraintName="EMP_EMAIL_UK_UQ_CONS" forIndexName="EMP_EMAIL_UK" tableName="EMPLOYEES"/>
     </changeSet>
     <changeSet author="support.liquibase.net (generated)" id="1585252954454-21">
         <pro:createFunction functionName="EQ_F" path="objects/function/EQ_F.sql" relativeToChangelogFile="true"/>
