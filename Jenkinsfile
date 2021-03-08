@@ -6,8 +6,8 @@ pipeline {
 agent any
   environment {
     PROJ="CLO"
-  	GITURL="https://github.com/szandany"
-  	ENVIRONMENT_STEP="${params.step}"
+    GITURL="https://github.com/szandany"
+    ENVIRONMENT_STEP="${params.step}"
     BRANCH="${params.pipeline}"
     PATH="/Users/support.liquibase.net/liquibase:$PATH"
   }
