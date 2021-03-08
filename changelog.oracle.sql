@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
---changeset SteveZ:45555-createTable_TABLE200 context:UAT,QA,SIT labels:Jira-166,feature1
+--changeset SteveZ:45555-createTable_TABLE200 context:UAT,QA,SIT,DEV labels:Jira-166,feature1
 CREATE TABLE TABLE200
  (
    JOB_ID VARCHAR2(10 BYTE) NOT NULL,
@@ -11,11 +11,11 @@ CREATE TABLE TABLE200
 ;
 --rollback drop table TABLE200
 
---changeset RobR:1614274722630-2
+--changeset RobR:1614274722630-2 context:UAT,QA,SIT,DEV
 CREATE TABLE EMPLOYEES (EMPLOYEE_ID NUMBER(6, 0) NOT NULL, FIRST_NAME VARCHAR2(20 BYTE), LAST_NAME VARCHAR2(25 BYTE) CONSTRAINT EMP_LAST_NAME_NN NOT NULL, EMAIL VARCHAR2(25 BYTE) CONSTRAINT EMP_EMAIL_NN NOT NULL, PHONE_NUMBER VARCHAR2(20 BYTE), HIRE_DATE date CONSTRAINT EMP_HIRE_DATE_NN NOT NULL, JOB_ID VARCHAR2(10 BYTE) CONSTRAINT EMP_JOB_NN NOT NULL, SALARY NUMBER(8, 2), COMMISSION_PCT NUMBER(2, 2), MANAGER_ID NUMBER(6, 0), DEPARTMENT_ID NUMBER(4, 0), CONSTRAINT EMP_EMP_ID_PK PRIMARY KEY (EMPLOYEE_ID)) TABLESPACE USERS;
 --rollback DROP TABLE EMPLOYEES;
 
---changeset MikeO:45556-CreatePROC_add_job_history112 context:PROD labels:Jira-167 endDelimiter:/ splitStatements:false runOnChange:true
+--changeset MikeO:45556-CreatePROC_add_job_history112 context:PROD,DEV labels:Jira-167 endDelimiter:/ splitStatements:false runOnChange:true
 CREATE OR REPLACE PROCEDURE add_job_history112
  (  p_emp_id          job_history.employee_id%type
   , p_start_date      job_history.start_date%type
