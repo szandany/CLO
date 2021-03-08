@@ -48,19 +48,19 @@ agent any
           echo "------------------------------------"
           echo "----------liquibase status----------"
           echo "------------------------------------"
-          liquibase --classpath:../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status
           echo "---------------------------------------------"
           echo "----------liquibase rollbackCount=2----------"
           echo "---------------------------------------------"
-          liquibase --classpath:../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollbackCount 2
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollbackCount 2
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
-          liquibase --classpath:../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP updateSQL
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP updateSQL
           echo "------------------------------------"
           echo "----------liquibase update----------"
           echo "------------------------------------"
-          liquibase --classpath:../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP update
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP update
         '''
       } // steps
     }   // Environment stage
