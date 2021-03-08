@@ -50,9 +50,9 @@ agent any
           echo "------------------------------------"
           liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status
           echo "---------------------------------------------"
-          echo "----------liquibase rollbackCount=2----------"
+          echo "----------liquibase tag version1----------"
           echo "---------------------------------------------"
-          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollbackCount 2
+          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP tag version1
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
@@ -61,6 +61,9 @@ agent any
           echo "----------liquibase update----------"
           echo "------------------------------------"
           liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP update
+          echo "----------liquibase rollback to tag 'version1' ----------"
+          echo "---------------------------------------------------------"
+          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollback version1
         '''
       } // steps
     }   // Environment stage
