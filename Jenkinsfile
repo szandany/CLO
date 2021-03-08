@@ -48,11 +48,11 @@ agent any
           echo "------------------------------------"
           echo "----------liquibase status----------"
           echo "------------------------------------"
-          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP status --verbose
           echo "---------------------------------------------"
           echo "----------liquibase tag version1----------"
           echo "---------------------------------------------"
-          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP tag version1
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP tag version1
           echo "---------------------------------------"
           echo "----------liquibase updateSQL----------"
           echo "---------------------------------------"
@@ -60,10 +60,10 @@ agent any
           echo "------------------------------------"
           echo "----------liquibase update----------"
           echo "------------------------------------"
-          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP update
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP update
           echo "----------liquibase rollback to tag 'version1' ----------"
           echo "---------------------------------------------------------"
-          liquibase --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollback version1
+          liquibase --classpath=../../../Drivers/ojdbc10.jar --url=${ORACLE_URL} --password=${PASSWORD} --contexts=$ENVIRONMENT_STEP rollback version1
         '''
       } // steps
     }   // Environment stage
