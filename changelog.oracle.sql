@@ -1,4 +1,4 @@
--- liquibase formatted sql changeLogId:13d81e12-c0f0-4458-bfe1-531c9426a037
+-- liquibase formatted sql
 
 --changeset SteveZ:45555-createTable_TABLE200 context:UAT,QA,SIT labels:Jira-166,feature1
 CREATE TABLE TABLE200
